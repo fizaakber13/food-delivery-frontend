@@ -1,0 +1,174 @@
+.cart-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.restaurant-cart {
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  margin-left: 140px;
+}
+
+.restaurant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-items {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 15px;
+}
+
+.cart-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-box button {
+  background-color: #9ca1a6;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-box button:hover {
+  background-color: #8b9094;
+}
+
+.remove-btn {
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  background-color: #b3b0b0;
+}
+
+.cart-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-btn {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-btn:hover {
+  background-color: #218838;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 400px;
+  text-align: center;
+}
+
+.modal-content h3 {
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.modal-content ul li {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.modal-content p {
+  margin: 8px 0;
+}
+
+.modal-content select {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.modal-content input[type="radio"] {
+  margin-right: 8px;
+}
+
+.modal-content label {
+  margin-right: 20px;
+  font-weight: normal;
+}
+
+.modal-content button {
+  margin: 10px 5px 0 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content .yes-btn {
+  background-color: #d2d6da;
+}
+
+.modal-content .yes-btn:hover {
+  background-color: #b1b2b4;
+}
+
+.modal-content .close-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.modal-content .close-btn:hover {
+  background-color: #b82c3a;
+}
+
+.modal-content .success-message {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}

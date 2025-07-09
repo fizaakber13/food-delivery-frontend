@@ -1,0 +1,98 @@
+<div [@fadeSlideDown]>
+  <div class="coupon-box">
+    <input
+      class="search-box"
+      type="text"
+      placeholder="Search coupons"
+      [(ngModel)]="searchText" />
+
+    <button class="add-button" (click)="openAddModal()">+ Add New Coupon</button>
+
+    <ul class="coupon-list">
+      <li *ngFor="let c of getFilteredCoupons()">
+        <div class="coupon-details">
+          <div>
+            <strong>{{ c.code }}</strong> —
+            {{ c.discountType === 'flat' ? '₹' + c.discountAmount : c.discountAmount + '%' }} OFF
+            <br />
+            <p *ngIf="c.condition === 'date'">
+              Valid Until: {{ c.expirationDate ? (c.expirationDate.split('T')[0]) : 'N/A' }}
+            </p>
+            <p *ngIf="c.condition === 'minPrice'">
+              Min Order: ₹{{ c.minOrderAmount }}
+            </p>
+          </div>
+
+          <div class="action-buttons">
+            <label class="toggle-switch">
+              <input
+                type="checkbox"
+                [checked]="c.isActive"
+                (change)="toggleActive(c)" />
+
+              <span class="slider"></span>
+            </label>
+
+            <button class="edit-btn" (click)="openEditModal(c)">✏️ Edit</button>
+            <button class="delete-btn" (click)="confirmDelete(c.id)">❌ Delete</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="modal" *ngIf="showModal">
+      <div class="modal-content">
+        <h3>{{ editMode ? 'Edit Coupon' : 'Add Coupon' }}</h3>
+
+        <input [(ngModel)]="newCoupon.code" placeholder="Coupon Code" required />
+
+        <select [(ngModel)]="newCoupon.discountType" required>
+  <option disabled value="">-- Select Discount Type --</option>
+  <option value="percentage">Percentage (%)</option>
+  <option value="flat">Flat ₹</option>
+</select>
+
+        <input
+          type="number"
+          [(ngModel)]="newCoupon.discountAmount"
+          placeholder="Discount Amount"
+          required />
+
+        <select [(ngModel)]="newCoupon.condition" required>
+  <option disabled value="">-- Select Condition --</option>
+  <option value="date">Valid Until (Date)</option>
+  <option value="minPrice">Minimum Order Price</option>
+</select>
+
+        <input
+          *ngIf="newCoupon.condition === 'date'"
+          type="date"
+          [(ngModel)]="newCoupon.expirationDate"
+          required />
+
+        <input
+          *ngIf="newCoupon.condition === 'minPrice'"
+          type="number"
+          [(ngModel)]="newCoupon.minOrderAmount"
+          placeholder="Enter minimum order value"
+          required />
+
+        <div class="confirm-buttons">
+          <button class="yes-btn" (click)="saveCoupon()">
+            {{ editMode ? 'Update' : 'Add' }}
+          </button>
+          <button class="close-btn" (click)="showModal = false">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" *ngIf="showDeleteConfirm">
+      <div class="modal-content">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this coupon?</p>
+        <button class="yes-btn" (click)="deleteCoupon()">Yes</button>
+        <button class="close-btn" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+</div>

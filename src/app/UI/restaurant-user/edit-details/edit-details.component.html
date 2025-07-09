@@ -1,0 +1,21 @@
+<div class="admin-container">
+  <h2>Edit Restaurant Details</h2>
+
+  <div class="admin-content-box">
+    <form (ngSubmit)="updateDetails()">
+      <label>Restaurant Name</label>
+      <input type="text" [(ngModel)]="restaurant.name" name="name" required />
+
+      <label>Email</label>
+      <input type="email" [(ngModel)]="restaurant.email" name="email" required />
+
+      <label>Contact Number</label>
+      <input type="text" [(ngModel)]="restaurant.contact" name="contact" required />
+
+      <label>Address</label>
+      <input type="text" [(ngModel)]="restaurant.address" name="address" required />
+
+      <button type="submit" class="submit-btn">Update Details</button>
+    </form>
+  </div>
+</div>

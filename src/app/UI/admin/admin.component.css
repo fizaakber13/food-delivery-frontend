@@ -1,0 +1,57 @@
+.admin-container {
+    background-color: #edecec;
+    border: 1px solid #edecec;
+    padding: 30px;
+    border-radius: 12px;
+    width: 80%;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .admin-nav {
+    display: flex;
+    flex-direction: row;
+    
+  }
+  
+  .admin-nav button {
+    background-color: #ffffff;
+    color: black;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    transition: background-color 0.3s ease;
+    border: 1px solid #d8e2f4;
+    cursor: pointer;
+    width: 200px;
+    margin-left:45px;
+    
+    
+  }
+  
+  .admin-nav button:hover {  
+    background-color: #707070;
+  }
+  .admin-content-box {
+    background-color: #edecec;
+    border: 1px solid #edecec;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 1500px;
+    margin: 20px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+  }
+  
+  .admin-nav .active {
+    background-color: #1A1A1A; 
+    color: white;
+    font-weight: bold;
+  
+   }
+  
+
+
+  

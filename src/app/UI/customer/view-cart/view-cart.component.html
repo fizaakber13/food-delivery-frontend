@@ -1,0 +1,118 @@
+<div [@fadeSlideDown]>
+  <div class="cart-box">
+    <h2 style="margin-left: 140px;">Your Cart</h2>
+
+    
+    <div *ngIf="cart.length === 0" style="text-align: center;">
+      <p>No items in cart.</p>
+    </div>
+
+    
+    <div *ngFor="let group of cart" class="restaurant-cart">
+      
+      <div class="restaurant-header">
+        <strong>{{ group.restaurantName }}</strong>
+        <button class="remove-btn" (click)="confirmRemove(group.restaurantId)">
+          <span style="color: black;">✖</span>
+        </button>
+      </div>
+
+      
+      <ul class="cart-items">
+        <li *ngFor="let item of group.items">
+          {{ item.name }} — ₹{{ item.unitPrice }}
+          <div class="quantity-box">
+            <button (click)="decreaseQuantity(group, item.id)">-</button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="increaseQuantity(group, item.id)">+</button>
+          </div>
+        </li>
+      </ul>
+
+      
+      <div class="cart-footer">
+        Total: ₹{{ getTotal(group) }}
+        <button class="checkout-btn" (click)="proceedToCheckout(group)">Proceed to Checkout</button>
+      </div>
+    </div>
+
+    
+    <div class="modal" *ngIf="showConfirmModal">
+      <div class="modal-content">
+        <h3>Confirm Remove</h3>
+        <p>Remove this restaurant from cart?</p>
+        <button class="yes-btn" (click)="removeRestaurant(showConfirmModal); cancelRemove()">Yes</button>
+        <button class="close-btn" (click)="cancelRemove()">No</button>
+      </div>
+    </div>
+
+    
+    <div class="modal" *ngIf="showCheckoutModal">
+      <div class="modal-content">
+        <h3>Order Summary</h3>
+        <p><strong>Order ID:</strong> #{{ orderId }}</p>
+        <p><strong>Restaurant:</strong> {{ getCartGroupById(showCheckoutModal)?.restaurantName }}</p>
+
+        <ul>
+          <li *ngFor="let item of getCartGroupById(showCheckoutModal)?.items">
+            <strong>{{ item.name }}</strong> × {{ item.quantity }} - ₹{{ item.unitPrice * item.quantity }}
+          </li>
+        </ul>
+
+        
+        <label><strong>Apply Coupon:</strong></label>
+        <select [(ngModel)]="selectedCouponId" (ngModelChange)="applyCoupon()" required>
+          <option [ngValue]="null" disabled>-- Select Coupon --</option>
+          <option *ngFor="let c of eligibleCoupons" [ngValue]="c.id">
+            {{ c.code }} - ₹{{ c.discountAmount }} off
+          </option>
+        </select>
+
+        
+        <p><strong>Original Total:</strong> ₹{{ getTotal(getCartGroupById(showCheckoutModal)!) }}</p>
+        <p *ngIf="appliedDiscount > 0" style="color: green;">
+          <strong>Discount Applied:</strong> -₹{{ appliedDiscount }}
+        </p>
+        <p><strong>Final Total:</strong> ₹{{ getDiscountedTotal(getCartGroupById(showCheckoutModal)!) }}</p>
+
+        
+        <label><strong>Choose Address:</strong></label>
+        <select [(ngModel)]="selectedAddressId" required>
+          <option value="" disabled>Select Address</option>
+          <option *ngFor="let address of addresses" [value]="address.id">
+            {{ address.fullAddress }} <span *ngIf="address.isDefault"> (Default)</span>
+          </option>
+        </select>
+
+        
+        <label><strong>Payment Method:</strong></label>
+        <div>
+          <input type="radio" [(ngModel)]="paymentMethod" value="cod" id="cod" />
+          <label for="cod">Pay on Delivery</label>
+        </div>
+        <div>
+          <input type="radio" [(ngModel)]="paymentMethod" value="online" id="online" />
+          <label for="online">Pay Online (Razorpay)</label>
+        </div>
+
+        
+        <br />
+        <button class="yes-btn"
+                (click)="placeOrder(getCartGroupById(showCheckoutModal)!)"
+                [disabled]="!selectedAddressId">
+          Place Order
+        </button>
+        <button class="close-btn" (click)="closeCheckoutModal()">Cancel</button>
+      </div>
+    </div>
+
+    
+    <div class="modal" *ngIf="showSuccessModal">
+      <div class="modal-content">
+        <h3>Order Placed Successfully!</h3>
+        <p>Your order has been placed and is being processed.</p>
+        <button class="yes-btn" (click)="closeSuccessModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

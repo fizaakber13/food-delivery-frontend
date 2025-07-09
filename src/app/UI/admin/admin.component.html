@@ -1,0 +1,14 @@
+<div class="admin-container">
+  <nav class="admin-nav">
+    <button routerLink="restaurant" routerLinkActive="active">Manage Restaurant</button>
+    <button routerLink="menu" routerLinkActive="active">Manage Menu</button>
+    <button routerLink="order" routerLinkActive="active">Manage Order</button>
+    <button routerLink="user" routerLinkActive="active">Manage User</button>
+    <button routerLink="coupon" routerLinkActive="active">Manage Coupon</button>
+  </nav>
+</div>
+
+
+<div class="admin-content-box" [@fadeSlide]>
+  <router-outlet></router-outlet>
+</div>

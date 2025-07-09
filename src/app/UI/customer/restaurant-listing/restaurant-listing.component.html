@@ -1,0 +1,38 @@
+<div [@fadeSlideDown]>
+  <div class="restaurant-box">
+    <input
+      type="text"
+      class="search-box"
+      placeholder="Search by name"
+      [(ngModel)]="searchText"
+      (ngModelChange)="applyFilters()"
+    />
+
+    <div class="filter-box">
+      <label for="cuisine">Filter by Cuisine:</label>
+      <select id="cuisine" [(ngModel)]="selectedCuisine" (change)="applyFilters()">
+        <option value="">All</option>
+        <option *ngFor="let cuisine of cuisineTypes" [value]="cuisine">{{ cuisine }}</option>
+      </select>
+
+      <label for="rating">Minimum Rating:</label>
+      <select id="rating" [(ngModel)]="minRating" (change)="applyFilters()">
+        <option value="0">All</option>
+        <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }}+</option>
+      </select>
+    </div>
+
+    <ul class="restaurant-list">
+      <li *ngFor="let r of filtered">
+        <div class="restaurant-details">
+          <div>
+            <strong>{{ r.name }}</strong><br />
+            <p>Cuisine: {{ r.cuisine }} | Rating: {{ r.rating }}★</p>
+            {{ r.address }}
+          </div>
+          <button class="view-btn" (click)="viewMenu(r.id)">View Menu</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

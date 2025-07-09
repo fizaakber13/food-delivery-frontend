@@ -1,0 +1,46 @@
+<div [@fadeSlideDown]>
+  <div class="order-box">
+
+    <input
+      type="text"
+      class="search-box"
+      placeholder="Search by order ID, customer or restaurant name"
+      [(ngModel)]="searchText" />
+
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Customer</th>
+          <th>Restaurant</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of getFilteredOrders()">
+          <td>{{ order.id }}</td>
+          <td>{{ order.user?.name || 'Unknown' }}</td>
+          <td>{{ order.restaurant?.name || 'Unknown' }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let item of order.orderItems">
+                {{ item.menuItem.name }}
+              </li>
+            </ul>
+          </td>
+          <td>₹{{ order.totalAmount }}</td>
+          <td>
+            <select [(ngModel)]="order.status" (change)="updateStatus(order.id, order.status)">
+              <option value="Ordered">Ordered</option>
+              <option value="Preparing">Preparing</option>
+              <option value="On the Way">On the Way</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<div [@fadeSlideDown]>
+  <div class="user-box">
+    <!-- Search -->
+    <input class="search-box" type="text" placeholder="Search users" [(ngModel)]="searchText" />
+
+    
+    <ul class="user-list">
+      <li *ngFor="let user of getFilteredUsers()">
+        <div class="user-details">
+          <div>
+            <strong>{{ user.name }}</strong>
+            <p>Email/Contact: {{ user.emailOrPhone }}</p>
+            <p>
+              Address:
+              <span *ngFor="let addr of user.addresses; let i = index">
+                <strong *ngIf="addr.isDefault">[Default]</strong>
+                {{ addr.line }} ({{ addr.label }})
+                <span *ngIf="i < user.addresses.length - 1">, </span>
+              </span>
+            </p>
+          </div>
+
+          <div class="action-buttons">
+            <button class="edit-btn" (click)="openEditModal(user)">✏️ Edit</button>
+            <button class="delete-btn" (click)="confirmDelete(user.id)">❌ Delete</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Edit Modal -->
+    <div class="modal" *ngIf="showModal">
+      <div class="modal-content">
+        <h3>Edit User</h3>
+
+        <form (ngSubmit)="saveUser()" autocomplete="off">
+          <input [(ngModel)]="newUser.name" name="name" placeholder="Full Name" required />
+          <input [(ngModel)]="newUser.emailOrPhone" name="email" placeholder="Email or Phone" required />
+
+          <label><strong>Addresses:</strong></label>
+          <div *ngFor="let addr of newUser.addresses; let i = index; trackBy: trackByIndex" style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+            <input [(ngModel)]="addr.line" [name]="'address' + i" placeholder="Address Line" required />
+            <input [(ngModel)]="addr.label" [name]="'label' + i" placeholder="Label (Home, Work...)" />
+            <label>
+              <input type="checkbox" [(ngModel)]="addr.isDefault" [name]="'default' + i" />
+              Default
+            </label>
+            <button type="button" (click)="removeAddressField(i)" *ngIf="newUser.addresses.length > 1">− Remove</button>
+          </div>
+
+          <button type="button" (click)="addAddressField()">+ Add Address</button>
+
+          <div class="confirm-buttons">
+            <button type="submit">Update</button>
+            <button type="button" class="close-btn" (click)="showModal = false">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Delete confirmation modal -->
+    <div class="modal" *ngIf="showDeleteConfirm">
+      <div class="modal-content">
+        <h3>Confirm Delete</h3>
+        <p>Are you sure you want to delete this user?</p>
+        <button class="yes-btn" (click)="deleteUser()">Yes</button>
+        <button class="close-btn" (click)="cancelDelete()">No</button>
+      </div>
+    </div>
+  </div>
+</div>

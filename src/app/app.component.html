@@ -1,0 +1,29 @@
+
+<div *ngIf="!isLoginPage()" class="top-bar">
+  <div class="logo-title">
+    <img src="assets/logo.png" alt="App Logo" class="logo" />
+  </div>
+
+  <div class="top-actions">
+    
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </div>
+</div>
+
+
+<router-outlet></router-outlet>
+
+
+<div *ngIf="!isLoginPage() && showProfileModal" class="modal">
+  <div class="modal-content">
+    <h3>Edit Profile</h3>
+
+    
+    <form (ngSubmit)="updateProfile()" #profileForm="ngForm">
+      <input type="text" name="name" [(ngModel)]="user.name" placeholder="Name" required />
+      <input type="text" name="email" [(ngModel)]="user.email" placeholder="Email or Phone" required />
+      <button type="submit" [disabled]="profileForm.invalid">Update</button>
+      <button type="button" class="close-btn" (click)="showProfileModal = false">Cancel</button>
+    </form>
+  </div>
+</div>

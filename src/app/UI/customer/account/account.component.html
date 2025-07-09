@@ -1,0 +1,46 @@
+<div class="account-container" [@fadeSlideDown]>
+  <h2>My Profile</h2>
+
+  <div class="form-group">
+    <label>Name:</label>
+    <input [(ngModel)]="user.name" type="text" />
+  </div>
+
+  <div class="form-group">
+    <label>Email:</label>
+    <input [(ngModel)]="user.emailOrPhone" type="email" />
+  </div>
+
+  <h3>Addresses</h3>
+
+  <div *ngFor="let addr of user.addresses; let i = index; trackBy: trackByIndex">
+    <div class="form-group">
+      <label>Label:</label>
+      <input [(ngModel)]="addr.label" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label>Full Address:</label>
+      <input [(ngModel)]="addr.line" type="text" />
+    </div>
+
+    <div class="form-group">
+      <label>
+        <input
+          type="checkbox"
+          [checked]="addr.isDefault"
+          (change)="setDefaultAddress(i)"
+        />
+        Default
+      </label>
+    </div>
+
+    <button class="remove-btn" (click)="removeAddressField(i)">Remove</button>
+    <hr />
+  </div>
+
+  <button (click)="addAddressField()">+ Add Address</button>
+  <br /><br />
+
+  <button class="save-btn" (click)="updateProfile()">Save Changes</button>
+</div>

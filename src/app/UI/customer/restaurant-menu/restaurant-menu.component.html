@@ -1,0 +1,42 @@
+<div [@fadeSlideDown]>
+  <div class="menu-box">
+    <h2 style="margin-left: 140px;">{{ restaurant?.name }}</h2>
+    <p style="margin-left: 140px;">
+      Cuisine: {{ restaurant?.cuisine }} | Rating: {{ restaurant?.rating }}★
+    </p>
+    <p style="margin-left: 140px;">
+      📍 Location: {{ restaurant?.address }}
+    </p>
+
+    <input
+      type="text"
+      class="search-box"
+      placeholder="Search menu items"
+      [(ngModel)]="searchText"
+    />
+
+    <ul class="menu-list">
+      <li *ngFor="let item of filteredMenuItems()">
+        <div class="menu-item">
+          <div>
+            <strong>{{ item.name }}</strong><br />
+            <p>₹{{ item.price }} | {{ item.category }}</p>
+            {{ item.description }}
+          </div>
+
+          <div class="menu-actions">
+            <div class="quantity-box">
+              <button (click)="changeLocalQuantity(item.id, -1)">-</button>
+              <span>{{ quantities[item.id] || 1 }}</span>
+              <button (click)="changeLocalQuantity(item.id, 1)">+</button>
+            </div>
+
+            <button class="add-btn" (click)="addToCart(item)">Add to Cart</button>
+
+            <span class="added-msg" *ngIf="addedToCart[item.id]">✅ Added to cart!</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

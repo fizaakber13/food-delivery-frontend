@@ -1,0 +1,113 @@
+
+<div class="logo-title">
+  <img src="assets/logo.png" alt="App Logo" class="logo" />
+</div>
+
+
+<div class="login-container">
+  <div class="login-box">
+    <h2>{{ isSignUp ? 'Sign Up' : 'Sign In' }}</h2>
+
+    <form (ngSubmit)="verifyOtp()">
+      <div *ngIf="isSignUp">
+        <input
+          type="text"
+          placeholder="Name"
+          [(ngModel)]="name"
+          name="name"
+          required
+        />
+      </div>
+
+      <input
+        type="text"
+        placeholder="Email"
+        [(ngModel)]="emailOrPhone"
+        name="emailOrPhone"
+        required
+      />
+
+      <div *ngIf="showOtpField">
+        <input
+          type="text"
+          placeholder="Enter OTP"
+          [(ngModel)]="enteredOtp"
+          name="enteredOtp"
+          required
+        />
+      </div>
+
+      <button
+        type="button"
+        (click)="requestOtp()"
+        *ngIf="!showOtpField"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Sending OTP...' : 'Request OTP' }}
+      </button>
+
+      <button
+        type="submit"
+        *ngIf="showOtpField"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Verifying...' : 'Verify OTP' }}
+      </button>
+    </form>
+
+    <p class="toggle-text">
+      {{ isSignUp ? 'Already have an account?' : "Don't have an account?" }}
+      <a (click)="toggleMode()">{{ isSignUp ? 'Sign In' : 'Sign Up' }}</a>
+    </p>
+
+    
+    <p class="toggle-text" style="margin-top: 10px;">
+      Want to become a restaurant partner?
+      <a (click)="openRestaurantModal()" style="cursor: pointer;">Register your restaurant</a>
+    </p>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="showRestaurantModal">
+  <div class="modal">
+    <h3>Register Your Restaurant</h3>
+    <form (ngSubmit)="submitRestaurantRegistration()">
+      <input
+        type="text"
+        placeholder="Restaurant Name"
+        [(ngModel)]="restName"
+        name="restName"
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="restEmail"
+        name="restEmail"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Contact Number"
+        [(ngModel)]="restContact"
+        name="restContact"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Location"
+        [(ngModel)]="restLocation"
+        name="restLocation"
+        required
+      />
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Submitting...' : 'Submit' }}
+      </button>
+      <button type="button" class="cancel-btn" (click)="closeRestaurantModal()">
+        Cancel
+      </button>
+    </form>
+  </div>
+</div>

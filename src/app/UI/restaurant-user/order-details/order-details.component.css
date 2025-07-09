@@ -1,0 +1,42 @@
+.order-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.search-box {
+  width: 78.5%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-left: 160px;
+  margin-bottom: 45px;
+}
+
+.order-table {
+  width: 80%;
+  margin-left: 160px;
+  border-collapse: collapse;
+}
+
+.order-table th,
+.order-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.order-table th {
+  background-color: #f2f2f2;
+}
+
+select {
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+select:hover {
+  background-color: #e7e5e5;
+}
